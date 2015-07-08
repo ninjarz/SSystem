@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/web/css/materialize.min.css"  media="screen,projection"/>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="/web/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/web/js/materialize.min.js"></script>
+</head>
+
+<body>
+    <!-- nav -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo left">&nbsp;学生管理系统</a>
+            <ul id="nav-mobile" class="hide-on-med-and-down right">
+                <li><a href="#">选课</a></li>
+                <li><a href="#">成绩</a></li>
+                <li><a href="/">退出</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- table -->
+    <div>
+        <div class="card-panel">
+            <a name="features"></a>
+            <span class="card-title grey-text">
+                <h3>成绩</h3>
+            </span>
+            <p>
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th data-field="id"><span class="green-text left">课程号</span></th>
+                        <th data-field="name"><span class="green-text left">课程名称</span></th>
+                        <th data-field="score"><span class="green-text left">成绩</span></th>
+                        <th data-field="status"><span class="teal-text left">通过</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for course in courses %}
+				    <tr>
+                        <td>{{ course['id'] }}</td>
+                        <td>{{ course['name'] }}</td>
+                        <td>{{ course['score'] }}</td>
+                        {% if course['status'] == 1 %}
+                        <td><i class="small mdi-toggle-check-box left teal-text darken-1"></i></td>
+                        {% else %}
+						<td><i class="small mdi-toggle-check-box-outline-blank left teal-text"></i></td>
+                        {% end %}
+                    </tr>
+                    {% end %}
+                </tbody>
+
+                <tfoot class="hide-on-small-and-down">
+                    <tr>
+                        <td style="padding-top:0px"><span class="hide-on-small-only"><h5>Price</h5></span></td>
+                        <td style="padding-top:15px;padding-right:5px"><a class="waves-effect waves-light btn light-green darken-1" href="https://play.google.com/store/apps/details?id=com.procoit.kioskbrowser">Free*</a></td>
+                        <td style="padding-top:15px"><a class="waves-effect waves-light btn teal" href="http://sites.fastspring.com/androidkiosk/product/kioskbrowserpro?action=adds&amp;tags=kioskbrowser">£5.00</a></td>
+                    </tr>
+                </tfoot>
+                <tfoot class="hide-on-med-and-up">
+                    <tr>
+                        <td colspan="3" style="padding-top:15px"><div align="center"><a class="waves-effect waves-light btn light-green darken-1" href="https://play.google.com/store/apps/details?id=com.procoit.kioskbrowser">Free*</a>&nbsp;<a class="waves-effect waves-light btn teal">Pro £5.00</a></div></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
