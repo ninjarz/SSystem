@@ -6,7 +6,7 @@ Base = declarative_base()
 
 
 class Admin(Base):
-    __tablename__ = 'StudentInfo'
+    __tablename__ = 'AdminInfo'
 
     aid = Column(Integer, primary_key=True)
     aname = Column(String)
@@ -22,7 +22,7 @@ class Student(Base):
 
 
 class Teacher(Base):
-    __tablename__ = 'StudentInfo'
+    __tablename__ = 'TeacherInfo'
 
     tid = Column(Integer, primary_key=True)
     tname = Column(String)

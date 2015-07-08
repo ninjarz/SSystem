@@ -28,16 +28,21 @@ class LoginHandler(BaseHandler):
 
 class StudentHandler(BaseHandler):
     @tornado.web.authenticated
-    def get(self):
-        courses = [
-            {
-                'id': 12,
-                'name': 'computer',
-                'score': 100,
-                'status': 1
-            }
-        ]
-        self.render("student.html", courses=courses)
+    def get(self, action):
+        action = action.split('/')
+        action = action[len(action) - 1]
+        if action == "":
+            self.render("student.html")
+        elif action == "score":
+            courses = [
+                {
+                    'id': 12,
+                    'name': 'computer',
+                    'score': 100,
+                    'status': 1
+                }
+            ]
+            self.render("student_score.html", courses=courses)
 
 
 class TeacherHandler(BaseHandler):

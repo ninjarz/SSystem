@@ -1,7 +1,8 @@
 import os
 
 config_data = {
-    "template_path": os.path.join(os.path.dirname(__file__), "web"),
+    "static_path": os.path.join(os.path.dirname(__file__), "web/static"),
+    "template_path": os.path.join(os.path.dirname(__file__), "web/template"),
 }
 
 

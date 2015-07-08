@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/web/static/css/materialize.min.css"  media="screen,projection"/>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="/web/static/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="/web/static/js/materialize.min.js"></script>
+</head>
+
+<body>
+    <!-- nav -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/student" class="brand-logo left">&nbsp;学生管理系统</a>
+            <ul id="nav-mobile" class="hide-on-med-and-down right">
+                <li><a href="#">选课</a></li>
+                <li><a href="/student/score">成绩</a></li>
+                <li><a href="/">退出</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- table -->
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#tab1" class="active">所有成绩</a></li>
+                <li class="tab col s3"><a href="#tab2">及格成绩</a></li>
+                <li class="tab col s3"><a href="#tab3">不及格成绩</a></li>
+                <li class="tab col s3"><a href="#tab4">什么鬼</a></li>
+            </ul>
+        </div>
+        <div id="tab1" class="col s12">
+            <div class="card-panel">
+                <a name="features"></a>
+                <span class="card-title grey-text">
+                    <h3>成绩</h3>
+                </span>
+                <p>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-field="id"><span class="green-text left">课程号</span></th>
+                            <th data-field="name"><span class="green-text left">课程名称</span></th>
+                            <th data-field="score"><span class="green-text left">成绩</span></th>
+                            <th data-field="status"><span class="teal-text left">通过</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>{{ course['id'] }}</td>
+                            <td>{{ course['name'] }}</td>
+                            <td>{{ course['score'] }}</td>
+                            {% if course['status'] == 1 %}
+                            <td><i class="small mdi-toggle-check-box left teal-text darken-1"></i></td>
+                            {% else %}
+                            <td><i class="small mdi-toggle-check-box-outline-blank left teal-text"></i></td>
+                            {% end %}
+                        </tr>
+                        {% end %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="tab2" class="col s12">
+
+        </div>
+        <div id="tab3" class="col s12">
+
+        </div>
+        <div id="tab4" class="col s12">
+
+        </div>
+    </div>
+
+</body>
+</html>
