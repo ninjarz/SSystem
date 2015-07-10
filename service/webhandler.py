@@ -65,14 +65,21 @@ class AdminHandler(BaseHandler):
             self.render("admin.html")
         elif action == "user":
             students = Student.select_all()
-            self.render("admin_user.html", students=students)
+            teachers = Teacher.select_all()
+            admins = Admin.select_all()
+            self.render("admin_user.html", students=students, teachers=teachers, admins=admins)
+        elif action == "course":
+            classes = Class.select_all()
+            courses = Course.select_all()
+            student_courses = StudentCourse.select_all()
+            self.render("admin_course.html", classes=classes, courses=courses, student_courses=student_courses)
 
     @tornado.web.authenticated
     def post(self, action):
         action = action.split('/')
         action = action[len(action) - 1]
 
-        # insert_student
+        # student
         if action == "insert_student":
             sid = self.get_argument('sid')
             sname = self.get_argument('sname')
@@ -85,4 +92,53 @@ class AdminHandler(BaseHandler):
             self.write(data)
         elif action == "delete_student":
             sid = self.get_argument('id')
+        # teacher
+        elif action == "insert_teacher":
+            tid = self.get_argument('tid')
+            tname = self.get_argument('tname')
+            tpwd = self.get_argument('tpwd')
+            teacher = Teacher.insert(tid, tname, tpwd)
+            data = json.dumps({
+                "teacher": None if teacher is None else teacher.dict()
+            })
+            self.write(data)
+        # admin
+        elif action == "insert_admin":
+            aid = self.get_argument('aid')
+            aname = self.get_argument('aname')
+            apwd = self.get_argument('apwd')
+            admin = Admin.insert(aid, aname, apwd)
+            data = json.dumps({
+                "admin": None if admin is None else admin.dict()
+            })
+            self.write(data)
+        # class
+        elif action == "insert_class":
+            cid = self.get_argument('cid')
+            class_obj = Class.insert(cid)
+            data = json.dumps({
+                "class": None if class_obj is None else class_obj.dict()
+            })
+            self.write(data)
+        # course
+        elif action == "insert_course":
+            cid = self.get_argument('cid')
+            cname = self.get_argument('cname')
+            tid = self.get_argument('tid')
+            course = Course.insert(cid, cname, tid)
+            data = json.dumps({
+                "course": None if course is None else course.dict()
+            })
+            self.write(data)
+        # student_course
+        elif action == "insert_student_course":
+            sid = self.get_argument('sid')
+            cid = self.get_argument('cid')
+            score = self.get_argument('score')
+            student_course = StudentCourse.insert(sid, cid, score)
+            data = json.dumps({
+                "student_course": None if student_course is None else student_course.dict()
+            })
+            self.write(data)
+
 

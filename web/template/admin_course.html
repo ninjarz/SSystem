@@ -9,7 +9,7 @@
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="/web/static/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/web/static/js/materialize.min.js"></script>
-    <script type="text/javascript" src="/web/static/js/admin_user.js"></script>
+    <script type="text/javascript" src="/web/static/js/admin_course.js"></script>
 </head>
 
 <body>
@@ -29,18 +29,112 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#tab1" class="active">学生</a></li>
-                <li class="tab col s3"><a href="#tab2">教师</a></li>
-                <li class="tab col s3"><a href="#tab3">管理员</a></li>
+                <li class="tab col s3"><a href="#tab1" class="active">班级</a></li>
+                <li class="tab col s3"><a href="#tab2">课程</a></li>
+                <li class="tab col s3"><a href="#tab3">学生课程</a></li>
                 <li class="tab col s3"><a href="#tab4">什么鬼</a></li>
             </ul>
         </div>
-        <!-- student -->
+        <!-- class -->
         <div id="tab1" class="col s12">
             <div class="card-panel">
                 <a name="features"></a>
                 <span class="card-title grey-text">
-                    <h3>学生</h3>
+                    <h3>班级</h3>
+                </span>
+                <p>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-field="id"><span class="green-text left">班级</span></th>
+                            <th data-field="space"><span class="green-text right">&nbsp;</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for class_obj in classes %}
+                        <tr>
+                            <td>{{ class_obj.cid }}</td>
+                        </tr>
+                        {% end %}
+                        <tr>
+                            <td>
+                                <div class="input-field">
+                                    <input id="cid" type="text" class="validate col s4" name="cid">
+                                    <label for="cid">班级</label>
+                                </div>
+                            </td>
+                            <td style="padding-top:15px"><a href="javascript:insert_class()" class="btn waves-effect waves-light">添加</a></td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-on-small-and-down">
+						<tr>
+						</tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!-- course -->
+        <div id="tab2" class="col s12">
+            <div class="card-panel">
+                <a name="features"></a>
+                <span class="card-title grey-text">
+                    <h3>课程</h3>
+                </span>
+                <p>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-field="id"><span class="green-text left">课程号</span></th>
+                            <th data-field="name"><span class="green-text left">课程名</span></th>
+                            <th data-field="tid"><span class="green-text left">教师号</span></th>
+                            <th data-field="space"><span class="green-text right">&nbsp;</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        <tr>
+                            <td>{{ course.cid }}</td>
+                            <td>{{ course.cname }}</td>
+                            <td>{{ course.tid }}</td>
+                        </tr>
+                        {% end %}
+                        <tr>
+                            <td>
+                                <div class="input-field">
+                                    <input id="course_cid" type="text" class="validate col s4" name="cid">
+                                    <label for="course_cid">课程号</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-field">
+                                    <input id="course_cname" type="text" class="validate col s4" name="cname">
+                                    <label for="course_cname">课程名</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-field">
+                                    <input id="course_tid" type="text" class="validate col s4" name="tid">
+                                    <label for="course_tid">教师号</label>
+                                </div>
+                            </td>
+                            <td style="padding-top:15px"><a href="javascript:insert_course()" class="btn waves-effect waves-light">添加</a></td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="hide-on-small-and-down">
+						<tr>
+						</tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!-- student_course -->
+        <div id="tab3" class="col s12">
+            <div class="card-panel">
+                <a name="features"></a>
+                <span class="card-title grey-text">
+                    <h3>学生课程</h3>
                 </span>
                 <p>
                 </p>
@@ -48,157 +142,39 @@
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">学号</span></th>
-                            <th data-field="name"><span class="green-text left">姓名</span></th>
-                            <th data-field="password"><span class="green-text left">密码</span></th>
-                            <th data-field="score"><span class="green-text left">班级</span></th>
+                            <th data-field="cid"><span class="green-text left">课程号</span></th>
+                            <th data-field="score"><span class="green-text left">成绩</span></th>
                             <th data-field="space"><span class="green-text right">&nbsp;</span></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for student in students %}
+                        {% for student_course in student_courses %}
                         <tr>
-                            <td>{{ student.sid }}</td>
-                            <td>{{ student.sname }}</td>
-                            <td>{{ student.spwd }}</td>
-                            <td>{{ student.cid }}</td>
+                            <td>{{ student_course.sid }}</td>
+                            <td>{{ student_course.cid }}</td>
+                            <td>{{ student_course.score }}</td>
                         </tr>
                         {% end %}
                         <tr>
                             <td>
                                 <div class="input-field">
-                                    <input id="sid" type="text" class="validate col s4" name="sid">
-                                    <label for="sid">学号</label>
+                                    <input id="student_course_sid" type="text" class="validate col s4" name="sid">
+                                    <label for="student_course_sid">学号</label>
                                 </div>
                             </td>
                             <td>
                                 <div class="input-field">
-                                    <input id="sname" type="text" class="validate col s4" name="sname">
-                                    <label for="sname">姓名</label>
+                                    <input id="student_course_cid" type="text" class="validate col s4" name="cid">
+                                    <label for="student_course_cid">课程号</label>
                                 </div>
                             </td>
                             <td>
                                 <div class="input-field">
-                                    <input id="spwd" type="text" class="validate col s4" name="spwd">
-                                    <label for="spwd">密码</label>
+                                    <input id="student_course_score" type="text" class="validate col s4" name="score">
+                                    <label for="student_course_score">成绩</label>
                                 </div>
                             </td>
-                            <td>
-                                <div class="input-field">
-                                    <input id="cid" type="text" class="validate col s4" name="cid">
-                                    <label for="cid">班级</label>
-                                </div>
-                            </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_student()" class="btn waves-effect waves-light">添加</a></td>
-                        </tr>
-                    </tbody>
-                    <tfoot class="hide-on-small-and-down">
-						<tr>
-						</tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-        <!-- teacher -->
-        <div id="tab2" class="col s12">
-            <div class="card-panel">
-                <a name="features"></a>
-                <span class="card-title grey-text">
-                    <h3>教师</h3>
-                </span>
-                <p>
-                </p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th data-field="id"><span class="green-text left">教工号</span></th>
-                            <th data-field="name"><span class="green-text left">姓名</span></th>
-                            <th data-field="password"><span class="green-text left">密码</span></th>
-                            <th data-field="space"><span class="green-text right">&nbsp;</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for teacher in teachers %}
-                        <tr>
-                            <td>{{ teacher.tid }}</td>
-                            <td>{{ teacher.tname }}</td>
-                            <td>{{ teacher.tpwd }}</td>
-                        </tr>
-                        {% end %}
-                        <tr>
-                            <td>
-                                <div class="input-field">
-                                    <input id="tid" type="text" class="validate col s4" name="tid">
-                                    <label for="tid">教工号</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-field">
-                                    <input id="tname" type="text" class="validate col s4" name="tname">
-                                    <label for="tname">姓名</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-field">
-                                    <input id="tpwd" type="text" class="validate col s4" name="tpwd">
-                                    <label for="tpwd">密码</label>
-                                </div>
-                            </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_teacher()" class="btn waves-effect waves-light">添加</a></td>
-                        </tr>
-                    </tbody>
-                    <tfoot class="hide-on-small-and-down">
-						<tr>
-						</tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-        <!-- admin -->
-        <div id="tab3" class="col s12">
-            <div class="card-panel">
-                <a name="features"></a>
-                <span class="card-title grey-text">
-                    <h3>管理员</h3>
-                </span>
-                <p>
-                </p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th data-field="id"><span class="green-text left">管理号</span></th>
-                            <th data-field="name"><span class="green-text left">姓名</span></th>
-                            <th data-field="password"><span class="green-text left">密码</span></th>
-                            <th data-field="space"><span class="green-text right">&nbsp;</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for admin in admins %}
-                        <tr>
-                            <td>{{ admin.aid }}</td>
-                            <td>{{ admin.aname }}</td>
-                            <td>{{ admin.apwd }}</td>
-                        </tr>
-                        {% end %}
-                        <tr>
-                            <td>
-                                <div class="input-field">
-                                    <input id="aid" type="text" class="validate col s4" name="aid">
-                                    <label for="aid">管理号</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-field">
-                                    <input id="aname" type="text" class="validate col s4" name="aname">
-                                    <label for="aname">姓名</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-field">
-                                    <input id="apwd" type="text" class="validate col s4" name="apwd">
-                                    <label for="apwd">密码</label>
-                                </div>
-                            </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_admin()" class="btn waves-effect waves-light">添加</a></td>
+                            <td style="padding-top:15px"><a href="javascript:insert_student_course()" class="btn waves-effect waves-light">添加</a></td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-on-small-and-down">
