@@ -3,41 +3,67 @@ import json
 from service.basehandler import *
 from database.orm import *
 
-
+# main
 class MainHandler(BaseHandler):
     def get(self):
         self.render("index.html")
 
 
+# login
 class LoginHandler(BaseHandler):
     def get(self):
-        if not self.get_secure_cookie("user"):
-            self.set_secure_cookie("user", self.request.remote_ip)
-
         user = self.get_argument('user')
         password = self.get_argument('password')
         user_type = self.get_argument('type')
 
         # student
         if user_type == '1':
-            self.redirect("/student")
+            student = Student.authenticate(user, password)
+            if student:
+                self.set_secure_cookie("user", user)
+                self.set_secure_cookie("type", user_type)
+                self.redirect("/student")
+            else:
+                self.redirect("/")
         # teacher
         elif user_type == '2':
-            self.redirect("/teacher")
+            teacher = Teacher.authenticate(user, password)
+            if teacher:
+                self.set_secure_cookie("user", user)
+                self.set_secure_cookie("type", user_type)
+                self.redirect("/teacher")
+            else:
+                self.redirect("/")
         # admin
         elif user_type == '3':
-            self.redirect("/admin")
+            admin = Admin.authenticate(user, password)
+            if admin:
+                self.set_secure_cookie("user", user)
+                self.set_secure_cookie("type", user_type)
+                self.redirect("/admin")
+            else:
+                self.redirect("/")
         else:
             self.redirect("/")
 
 
+# student
 class StudentHandler(BaseHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("type") == b'1'
+
     @tornado.web.authenticated
     def get(self, action):
         action = action.split('/')
         action = action[len(action) - 1]
+
+        student = Student.select_by_sid(self.get_secure_cookie("user").decode())
+        if student is None:
+            self.redirect("/")
+            return
+
         if action == "":
-            self.render("student.html")
+            self.render("student.html", student=student)
         elif action == "score":
             courses = [
                 {
@@ -50,19 +76,42 @@ class StudentHandler(BaseHandler):
             self.render("student_score.html", courses=courses)
 
 
+# teacher
 class TeacherHandler(BaseHandler):
-    @tornado.web.authenticated
-    def get(self):
-        self.render("teacher.html")
+    def get_current_user(self):
+        return self.get_secure_cookie("type") == b'2'
 
-
-class AdminHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self, action):
         action = action.split('/')
         action = action[len(action) - 1]
+
+        teacher = Teacher.select_by_tid(self.get_secure_cookie("user").decode())
+        if teacher is None:
+            self.redirect("/")
+            return
+
         if action == "":
-            self.render("admin.html")
+            self.render("teacher.html", teacher=teacher)
+
+
+# admin
+class AdminHandler(BaseHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("type") == b'3'
+
+    @tornado.web.authenticated
+    def get(self, action):
+        action = action.split('/')
+        action = action[len(action) - 1]
+
+        admin = Admin.select_by_aid(self.get_secure_cookie("user").decode())
+        if admin is None:
+            self.redirect("/")
+            return
+
+        if action == "":
+            self.render("admin.html", admin=admin)
         elif action == "user":
             students = Student.select_all()
             teachers = Teacher.select_all()

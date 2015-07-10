@@ -40,9 +40,24 @@ class Student(Base):
         orm.session.delete(self)
 
     @staticmethod
+    def authenticate(sid, spwd):
+        student = Student.select_by_sid(sid)
+        if student:
+            if student.spwd == spwd:
+                return student
+        return None
+
+    @staticmethod
     def select_all():
         students = orm.session.query(Student).all()
         return students
+
+    @staticmethod
+    def select_by_sid(sid):
+        student = orm.session.query(Student).filter_by(sid=sid).all()
+        if len(student):
+            return student[0]
+        return None
 
     @staticmethod
     def insert(sid, sname, spwd, cid):
@@ -72,9 +87,24 @@ class Teacher(Base):
     tpwd = Column(String)
 
     @staticmethod
+    def authenticate(tid, tpwd):
+        teacher = Teacher.select_by_tid(tid)
+        if teacher:
+            if teacher.tpwd == tpwd:
+                return teacher
+        return None
+
+    @staticmethod
     def select_all():
         teachers = orm.session.query(Teacher).all()
         return teachers
+
+    @staticmethod
+    def select_by_tid(tid):
+        teacher = orm.session.query(Teacher).filter_by(tid=tid).all()
+        if len(teacher):
+            return teacher[0]
+        return None
 
     @staticmethod
     def insert(tid, tname, tpwd):
@@ -103,6 +133,14 @@ class Admin(Base):
     apwd = Column(String)
 
     @staticmethod
+    def authenticate(aid, apwd):
+        admin = Admin.select_by_aid(aid)
+        if admin:
+            if admin.apwd == apwd:
+                return admin
+        return None
+
+    @staticmethod
     def select_all():
         admins = orm.session.query(Admin).all()
         return admins
@@ -117,6 +155,13 @@ class Admin(Base):
             orm.session.rollback()
             return None
         return admin
+
+    @staticmethod
+    def select_by_aid(aid):
+        admin = orm.session.query(Admin).filter_by(aid=aid).all()
+        if len(admin):
+            return admin[0]
+        return None
 
     def dict(self):
         return {
@@ -213,7 +258,4 @@ class StudentCourse(Base):
             'cid': self.cid,
             'score': self.score
         }
-
-
-
 

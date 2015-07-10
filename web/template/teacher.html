@@ -15,7 +15,7 @@
     <!-- nav -->
     <nav>
         <div class="nav-wrapper">
-            <a href="#" class="brand-logo left">&nbsp;学生管理系统</a>
+            <a href="/teacher" class="brand-logo left">&nbsp;学生管理系统</a>
             <ul id="nav-mobile" class="hide-on-med-and-down right">
                 <li><a href="#">课程信息</a></li>
                 <li><a href="#">录入成绩</a></li>
@@ -24,6 +24,22 @@
         </div>
     </nav>
 
+    <!-- card -->
+    <div style="width: 700px; margin: 10% auto;" class="row">
+        <div class="col s12">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">教师</span>
+                    <ul class="collection">
+                        <li class="collection-item blue-grey">教工号：{{ teacher.tid }}</li>
+                        <li class="collection-item blue-grey">姓名：{{ teacher.tname }}</li>
+                    </ul>
+                </div>
+                <div class="card-action">
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
