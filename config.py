@@ -1,6 +1,13 @@
 import os
 
 config_data = {
+    'database_type': 'mysql',
+    'connector': 'mysqlconnector',
+    'user_name': 'root',
+    'password': 'zisheng',
+    'host_name': 'localhost',
+    'database_name': 'ssystem',
+
     "static_path": os.path.join(os.path.dirname(__file__), "web/static"),
     "template_path": os.path.join(os.path.dirname(__file__), "web/template"),
 }
