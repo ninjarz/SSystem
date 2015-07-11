@@ -16,7 +16,7 @@
     <!-- nav -->
     <nav>
         <div class="nav-wrapper">
-            <a href="/admin" class="brand-logo left">&nbsp;学生管理系统</a>
+            <a href="/admin" class="brand-logo left">&nbsp;管理端</a>
             <ul id="nav-mobile" class="hide-on-med-and-down right">
                 <li><a href="/admin/user">用户信息</a></li>
                 <li><a href="/admin/course">课程信息</a></li>
@@ -29,10 +29,10 @@
     <div style="margin:10px 0" class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#tab1" class="active">学生</a></li>
-                <li class="tab col s3"><a href="#tab2">教师</a></li>
-                <li class="tab col s3"><a href="#tab3">管理员</a></li>
-                <li class="tab col s3"><a href="#tab4">什么鬼</a></li>
+                <li class="tab"><a href="#tab1" class="active">学生</a></li>
+                <li class="tab"><a href="#tab2">教师</a></li>
+                <li class="tab"><a href="#tab3">管理员</a></li>
+                <li class="tab"><a href="#tab4">什么鬼</a></li>
             </ul>
         </div>
         <!-- student -->
@@ -44,7 +44,7 @@
                 </span>
                 <p>
                 </p>
-                <table>
+                <table class="hoverable">
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">学号</span></th>
@@ -61,7 +61,7 @@
                             <td>{{ student.sname }}</td>
                             <td>{{ student.spwd }}</td>
                             <td>{{ student.cid }}</td>
-                            <td style="padding-top:15px"><a href="javascript:delete_student('{{ student.sid }}')" class="btn waves-effect waves-light">删除</a></td>
+                            <td><a href="javascript:delete_student('{{ student.sid }}')" class="btn waves-effect waves-light">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -89,7 +89,7 @@
                                     <label for="cid">班级</label>
                                 </div>
                             </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_student()" class="btn waves-effect waves-light">添加</a></td>
+                            <td><a href="javascript:insert_student()" class="btn waves-effect waves-light">添加</a></td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-on-small-and-down">
@@ -108,7 +108,7 @@
                 </span>
                 <p>
                 </p>
-                <table>
+                <table class="hoverable">
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">教工号</span></th>
@@ -123,7 +123,7 @@
                             <td>{{ teacher.tid }}</td>
                             <td>{{ teacher.tname }}</td>
                             <td>{{ teacher.tpwd }}</td>
-                            <td style="padding-top:15px"><a href="javascript:delete_teacher('{{ teacher.tid }}')" class="btn waves-effect waves-light">删除</a></td>
+                            <td><a href="javascript:delete_teacher('{{ teacher.tid }}')" class="btn waves-effect waves-light">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -145,7 +145,7 @@
                                     <label for="tpwd">密码</label>
                                 </div>
                             </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_teacher()" class="btn waves-effect waves-light">添加</a></td>
+                            <td><a href="javascript:insert_teacher()" class="btn waves-effect waves-light">添加</a></td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-on-small-and-down">
@@ -164,7 +164,7 @@
                 </span>
                 <p>
                 </p>
-                <table>
+                <table class="hoverable">
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">管理号</span></th>
@@ -179,7 +179,7 @@
                             <td>{{ admin.aid }}</td>
                             <td>{{ admin.aname }}</td>
                             <td>{{ admin.apwd }}</td>
-                            <td style="padding-top:15px"><a href="javascript:delete_admin('{{ admin.aid }}')" class="btn waves-effect waves-light">删除</a></td>
+                            <td><a href="javascript:delete_admin('{{ admin.aid }}')" class="btn waves-effect waves-light">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -201,7 +201,7 @@
                                     <label for="apwd">密码</label>
                                 </div>
                             </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_admin()" class="btn waves-effect waves-light">添加</a></td>
+                            <td><a href="javascript:insert_admin()" class="btn waves-effect waves-light">添加</a></td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-on-small-and-down">

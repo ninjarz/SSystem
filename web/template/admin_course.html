@@ -16,7 +16,7 @@
     <!-- nav -->
     <nav>
         <div class="nav-wrapper">
-            <a href="/admin" class="brand-logo left">&nbsp;学生管理系统</a>
+            <a href="/admin" class="brand-logo left">&nbsp;管理端</a>
             <ul id="nav-mobile" class="hide-on-med-and-down right">
                 <li><a href="/admin/user">用户信息</a></li>
                 <li><a href="/admin/course">课程信息</a></li>
@@ -29,10 +29,10 @@
     <div style="margin:10px 0" class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#tab1" class="active">班级</a></li>
-                <li class="tab col s3"><a href="#tab2">课程</a></li>
-                <li class="tab col s3"><a href="#tab3">学生课程</a></li>
-                <li class="tab col s3"><a href="#tab4">什么鬼</a></li>
+                <li class="tab"><a href="#tab1" class="active">班级</a></li>
+                <li class="tab"><a href="#tab2">课程</a></li>
+                <li class="tab"><a href="#tab3">学生课程</a></li>
+                <li class="tab"><a href="#tab4">什么鬼</a></li>
             </ul>
         </div>
         <!-- class -->
@@ -44,7 +44,7 @@
                 </span>
                 <p>
                 </p>
-                <table>
+                <table class="hoverable">
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">班级</span></th>
@@ -64,7 +64,7 @@
                                     <label for="cid">班级</label>
                                 </div>
                             </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_class()" class="btn waves-effect waves-light">添加</a></td>
+                            <td><a href="javascript:insert_class()" class="btn waves-effect waves-light">添加</a></td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-on-small-and-down">
@@ -83,7 +83,7 @@
                 </span>
                 <p>
                 </p>
-                <table>
+                <table class="hoverable">
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">课程号</span></th>
@@ -119,7 +119,7 @@
                                     <label for="course_tid">教师号</label>
                                 </div>
                             </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_course()" class="btn waves-effect waves-light">添加</a></td>
+                            <td><a href="javascript:insert_course()" class="btn waves-effect waves-light">添加</a></td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-on-small-and-down">
@@ -138,7 +138,7 @@
                 </span>
                 <p>
                 </p>
-                <table>
+                <table class="hoverable">
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">学号</span></th>
@@ -174,7 +174,7 @@
                                     <label for="student_course_score">成绩</label>
                                 </div>
                             </td>
-                            <td style="padding-top:15px"><a href="javascript:insert_student_course()" class="btn waves-effect waves-light">添加</a></td>
+                            <td><a href="javascript:insert_student_course()" class="btn waves-effect waves-light">添加</a></td>
                         </tr>
                     </tbody>
                     <tfoot class="hide-on-small-and-down">

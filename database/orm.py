@@ -69,6 +69,12 @@ class Student(Base):
         return student
 
     @staticmethod
+    def update(sid, data):
+        result = orm.session.query(Student).filter_by(sid=sid).update(data)
+        orm.session.commit()
+        return result
+
+    @staticmethod
     def delete(sid):
         student = Student.select_by_sid(sid)
         if student:
@@ -124,6 +130,12 @@ class Teacher(Base):
             orm.session.rollback()
             return None
         return teacher
+
+    @staticmethod
+    def update(tid, data):
+        result = orm.session.query(Teacher).filter_by(tid=tid).update(data)
+        orm.session.commit()
+        return result
 
     @staticmethod
     def delete(tid):
@@ -182,6 +194,12 @@ class Admin(Base):
         return None
 
     @staticmethod
+    def update(aid, data):
+        result = orm.session.query(Admin).filter_by(aid=aid).update(data)
+        orm.session.commit()
+        return result
+
+    @staticmethod
     def delete(aid):
         admin = Admin.select_by_aid(aid)
         if admin:
@@ -210,6 +228,13 @@ class Class(Base):
         return classes
 
     @staticmethod
+    def select_by_cid(cid):
+        class_obj = orm.session.query(Class).filter_by(cid=cid).all()
+        if len(class_obj):
+            return class_obj[0]
+        return None
+
+    @staticmethod
     def insert(cid):
         try:
             class_obj = Class(cid=cid)
@@ -219,6 +244,21 @@ class Class(Base):
             orm.session.rollback()
             return None
         return class_obj
+
+    @staticmethod
+    def update(cid, data):
+        result = orm.session.query(Class).filter_by(cid=cid).update(data)
+        orm.session.commit()
+        return result
+
+    @staticmethod
+    def delete(cid):
+        class_obj = Class.select_by_cid(cid)
+        if class_obj:
+            orm.session.delete(class_obj)
+            orm.session.commit()
+            return True
+        return False
 
     def dict(self):
         return {
@@ -240,6 +280,13 @@ class Course(Base):
         return courses
 
     @staticmethod
+    def select_by_cid(cid):
+        course = orm.session.query(Course).filter_by(cid=cid).all()
+        if len(course):
+            return course[0]
+        return None
+
+    @staticmethod
     def select_by_tid(tid):
         courses = orm.session.query(Course).filter_by(tid=tid).all()
         return courses
@@ -254,6 +301,21 @@ class Course(Base):
             orm.session.rollback()
             return None
         return course
+
+    @staticmethod
+    def update(cid, data):
+        result = orm.session.query(Course).filter_by(cid=cid).update(data)
+        orm.session.commit()
+        return result
+
+    @staticmethod
+    def delete(cid):
+        course = Course.select_by_cid(cid)
+        if course:
+            orm.session.delete(course)
+            orm.session.commit()
+            return True
+        return False
 
     def dict(self):
         return {
@@ -277,6 +339,13 @@ class StudentCourse(Base):
         return student_courses
 
     @staticmethod
+    def select_by_sid_cid(sid, cid):
+        student_course = orm.session.query(StudentCourse).filter_by(sid=sid, cid=cid).all()
+        if len(student_course):
+            return student_course[0]
+        return None
+
+    @staticmethod
     def select_by_sid(sid):
         student_courses = orm.session.query(StudentCourse).filter_by(sid=sid).all()
         return student_courses
@@ -291,6 +360,21 @@ class StudentCourse(Base):
             orm.session.rollback()
             return None
         return student_course
+
+    @staticmethod
+    def update(sid, cid, data):
+        result = orm.session.query(StudentCourse).filter_by(sid=sid, cid=cid).update(data)
+        orm.session.commit()
+        return result
+
+    @staticmethod
+    def delete(sid, cid):
+        course = StudentCourse.select_by_sid_cid(sid, cid)
+        if course:
+            orm.session.delete(course)
+            orm.session.commit()
+            return True
+        return False
 
     def dict(self):
         return {
@@ -309,5 +393,4 @@ def select_course_students(cid):
     students = orm.session.query(Student, StudentCourse)
     students = students.filter(StudentCourse.cid == cid).filter(Student.sid == StudentCourse.sid).all()
     return students
-
 

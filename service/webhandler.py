@@ -96,6 +96,29 @@ class TeacherHandler(BaseHandler):
                 students[course.cid] = select_course_students(course.cid)
             self.render("teacher_score.html", courses=courses, students=students)
 
+    @tornado.web.authenticated
+    def post(self, action):
+        action = action.split('/')
+        action = action[len(action) - 1]
+
+        # student
+        if action == "update_student_score":
+            sid = self.get_argument('sid')
+            cid = self.get_argument('cid')
+            score = self.get_argument('score')
+            data = json.dumps({
+                "success": False,
+            })
+            if score.isdigit():
+                if StudentCourse.update(sid, cid, {'score': score}):
+                    data = json.dumps({
+                        "success": True,
+                        "sid": sid,
+                        "cid": cid,
+                        "score": score
+                    })
+            self.write(data)
+
 
 # admin
 class AdminHandler(BaseHandler):

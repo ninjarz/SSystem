@@ -37,14 +37,14 @@ function insert_student_r(){
                 "<td>" + student.sname + "</td>" +
                 "<td>" + student.spwd + "</td>" +
                 "<td>" + student.cid + "</td>" +
-                "<td style='padding-top:15px'><a href='javascript:delete_student(\"" + student.sid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
+                "<td><a href='javascript:delete_student(\"" + student.sid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
             document.getElementById('sid').value = "";
             document.getElementById('sname').value = "";
             document.getElementById('spwd').value = "";
             document.getElementById('cid').value = "";
         }
         else {
-
+            Materialize.toast('插入失败!', 1000);
         }
 	}
 }
@@ -70,7 +70,7 @@ function delete_student_r(){
             }
         }
         else {
-
+            Materialize.toast('删除失败!', 1000);
         }
 	}
 }
@@ -97,13 +97,13 @@ function insert_teacher_r(){
                 "<td>" + teacher.tid + "</td>" +
                 "<td>" + teacher.tname + "</td>" +
                 "<td>" + teacher.tpwd + "</td>" +
-                "<td style='padding-top:15px'><a href='javascript:delete_teacher(\"" + teacher.tid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
+                "<td><a href='javascript:delete_teacher(\"" + teacher.tid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
             document.getElementById('tid').value = "";
             document.getElementById('tname').value = "";
             document.getElementById('tpwd').value = "";
         }
         else {
-
+            Materialize.toast('插入失败!', 1000);
         }
 	}
 }
@@ -129,7 +129,7 @@ function delete_teacher_r(){
             }
         }
         else {
-
+            Materialize.toast('删除失败!', 1000);
         }
 	}
 }
@@ -155,13 +155,14 @@ function insert_admin_r(){
             row.innerHTML +=
                 "<td>" + admin.aid + "</td>" +
                 "<td>" + admin.aname + "</td>" +
-                "<td>" + admin.apwd + "</td>";
+                "<td>" + admin.apwd + "</td>" +
+                "<td><a href='javascript:delete_admin(\"" + admin.aid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
             document.getElementById('aid').value = "";
             document.getElementById('aname').value = "";
             document.getElementById('apwd').value = "";
         }
         else {
-
+            Materialize.toast('插入失败!', 1000);
         }
 	}
 }
@@ -187,7 +188,7 @@ function delete_admin_r(){
             }
         }
         else {
-
+            Materialize.toast('删除失败!', 1000);
         }
 	}
 }

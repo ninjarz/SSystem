@@ -9,13 +9,14 @@
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="/web/static/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/web/static/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/web/static/js/teacher_score.js"></script>
 </head>
 
 <body>
     <!-- nav -->
     <nav>
         <div class="nav-wrapper">
-            <a href="/teacher" class="brand-logo left">&nbsp;学生管理系统</a>
+            <a href="/teacher" class="brand-logo left">&nbsp;教师端</a>
             <ul id="nav-mobile" class="hide-on-med-and-down right">
                 <li><a href="/teacher/course">课程信息</a></li>
                 <li><a href="/teacher/score">录入成绩</a></li>
@@ -41,13 +42,14 @@
                     <h3>{{ course.cname }}</h3>
                 </span>
                 <p></p>
-                <table>
+                <table class="hoverable">
                     <thead>
                         <tr>
                             <th data-field="id"><span class="green-text left">学号</span></th>
                             <th data-field="name"><span class="green-text left">姓名</span></th>
                             <th data-field="score"><span class="green-text left">成绩</span></th>
                             <th data-field="status"><span class="teal-text left">通过</span></th>
+                            <th data-field="space"><span class="green-text right">&nbsp;</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,6 +63,13 @@
                             {% else %}
                             <td><i class="small mdi-toggle-check-box-outline-blank left teal-text"></i></td>
                             {% end %}
+                            <td>
+                                <div class="input-field">
+                                    <input id="{{ student[0].sid }}_{{ course.cid }}" type="text" class="validate col s2">
+                                    <label for="{{ student[0].sid }}_{{ course.cid }}">成绩</label>
+                                </div>
+                                <a href="javascript:update_student_score('{{ student[0].sid }}', '{{ course.cid }}')" style="margin-left: 30px" class="btn waves-effect waves-light">修改成绩</a>
+                            </td>
                         </tr>
                         {% end %}
                     </tbody>

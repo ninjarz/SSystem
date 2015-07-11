@@ -21,7 +21,6 @@ function insert_class(){
 	XMLHttpReq.open("POST", "/admin/insert_class?cid=" + cid, true);
 	XMLHttpReq.send(null);
 }
-
 function insert_class_r(){
 	if(XMLHttpReq.readyState == 4) {
 		var response = XMLHttpReq.responseText;
@@ -34,7 +33,7 @@ function insert_class_r(){
             document.getElementById('cid').value = "";
         }
         else {
-
+            Materialize.toast('插入失败!', 1000);
         }
 	}
 }
@@ -49,7 +48,6 @@ function insert_course(){
 	XMLHttpReq.open("POST", "/admin/insert_course?cid=" + cid + "&cname=" + cname+ "&tid=" + tid, true);
 	XMLHttpReq.send(null);
 }
-
 function insert_course_r(){
 	if(XMLHttpReq.readyState == 4) {
 		var response = XMLHttpReq.responseText;
@@ -64,7 +62,7 @@ function insert_course_r(){
             document.getElementById('course_tid').value = "";
         }
         else {
-
+            Materialize.toast('插入失败!', 1000);
         }
 	}
 }
@@ -79,7 +77,6 @@ function insert_student_course(){
 	XMLHttpReq.open("POST", "/admin/insert_student_course?sid=" + sid + "&cid=" + cid+ "&score=" + score, true);
 	XMLHttpReq.send(null);
 }
-
 function student_course_r(){
 	if(XMLHttpReq.readyState == 4) {
 		var response = XMLHttpReq.responseText;
@@ -94,7 +91,7 @@ function student_course_r(){
             document.getElementById('student_course_score').value = "";
         }
         else {
-
+            Materialize.toast('插入失败!', 1000);
         }
 	}
 }
