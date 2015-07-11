@@ -28,16 +28,14 @@ Base = declarative_base()
 orm = ORM()
 
 
+# student
 class Student(Base):
     __tablename__ = 'StudentInfo'
 
     sid = Column(String, primary_key=True)
     sname = Column(String)
     spwd = Column(String)
-    cid = Column(String)
-
-    def delete(self):
-        orm.session.delete(self)
+    cid = Column(String, ForeignKey('ClassInfo.cid'))
 
     @staticmethod
     def authenticate(sid, spwd):
@@ -70,6 +68,15 @@ class Student(Base):
             return None
         return student
 
+    @staticmethod
+    def delete(sid):
+        student = Student.select_by_sid(sid)
+        if student:
+            orm.session.delete(student)
+            orm.session.commit()
+            return True
+        return False
+
     def dict(self):
         return {
             'sid': self.sid,
@@ -79,6 +86,7 @@ class Student(Base):
         }
 
 
+# teacher
 class Teacher(Base):
     __tablename__ = 'TeacherInfo'
 
@@ -117,6 +125,15 @@ class Teacher(Base):
             return None
         return teacher
 
+    @staticmethod
+    def delete(tid):
+        teacher = Teacher.select_by_tid(tid)
+        if teacher:
+            orm.session.delete(teacher)
+            orm.session.commit()
+            return True
+        return False
+
     def dict(self):
         return {
             'tid': self.tid,
@@ -125,6 +142,7 @@ class Teacher(Base):
         }
 
 
+# admin
 class Admin(Base):
     __tablename__ = 'AdminInfo'
 
@@ -163,6 +181,15 @@ class Admin(Base):
             return admin[0]
         return None
 
+    @staticmethod
+    def delete(aid):
+        admin = Admin.select_by_aid(aid)
+        if admin:
+            orm.session.delete(admin)
+            orm.session.commit()
+            return True
+        return False
+
     def dict(self):
         return {
             'aid': self.aid,
@@ -171,6 +198,7 @@ class Admin(Base):
         }
 
 
+# class
 class Class(Base):
     __tablename__ = 'ClassInfo'
 
@@ -198,16 +226,22 @@ class Class(Base):
         }
 
 
+# course
 class Course(Base):
     __tablename__ = 'CourseInfo'
 
     cid = Column(String, primary_key=True)
     cname = Column(String)
-    tid = Column(String)
+    tid = Column(String, ForeignKey('TeacherInfo.tid'))
 
     @staticmethod
     def select_all():
         courses = orm.session.query(Course).all()
+        return courses
+
+    @staticmethod
+    def select_by_tid(tid):
+        courses = orm.session.query(Course).filter_by(tid=tid).all()
         return courses
 
     @staticmethod
@@ -229,16 +263,22 @@ class Course(Base):
         }
 
 
+# student_course
 class StudentCourse(Base):
     __tablename__ = 'StudentCourse'
-
-    sid = Column(String, primary_key=True)
-    cid = Column(String)
+    sid = Column(String, ForeignKey('StudentInfo.sid'))
+    cid = Column(String, ForeignKey('CourseInfo.cid'))
     score = Column(Integer)
+    __table_args__ = (PrimaryKeyConstraint(sid, cid),)
 
     @staticmethod
     def select_all():
         student_courses = orm.session.query(StudentCourse).all()
+        return student_courses
+
+    @staticmethod
+    def select_by_sid(sid):
+        student_courses = orm.session.query(StudentCourse).filter_by(sid=sid).all()
         return student_courses
 
     @staticmethod
@@ -258,4 +298,16 @@ class StudentCourse(Base):
             'cid': self.cid,
             'score': self.score
         }
+
+
+def select_student_courses(sid):
+    courses = orm.session.query(StudentCourse, Course)
+    courses = courses.filter_by(sid=sid).filter(StudentCourse.cid == Course.cid).all()
+    return courses
+
+def select_course_students(cid):
+    students = orm.session.query(Student, StudentCourse)
+    students = students.filter(StudentCourse.cid == cid).filter(Student.sid == StudentCourse.sid).all()
+    return students
+
 

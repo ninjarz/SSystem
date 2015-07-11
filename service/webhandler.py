@@ -65,14 +65,7 @@ class StudentHandler(BaseHandler):
         if action == "":
             self.render("student.html", student=student)
         elif action == "score":
-            courses = [
-                {
-                    'id': 12,
-                    'name': 'computer',
-                    'score': 100,
-                    'status': 1
-                }
-            ]
+            courses = select_student_courses(student.sid)
             self.render("student_score.html", courses=courses)
 
 
@@ -93,6 +86,15 @@ class TeacherHandler(BaseHandler):
 
         if action == "":
             self.render("teacher.html", teacher=teacher)
+        elif action == "course":
+            courses = Course.select_by_tid(teacher.tid)
+            self.render("teacher_course.html", courses=courses)
+        elif action == "score":
+            courses = Course.select_by_tid(teacher.tid)
+            students = {}
+            for course in courses:
+                students[course.cid] = select_course_students(course.cid)
+            self.render("teacher_score.html", courses=courses, students=students)
 
 
 # admin
@@ -140,7 +142,17 @@ class AdminHandler(BaseHandler):
             })
             self.write(data)
         elif action == "delete_student":
-            sid = self.get_argument('id')
+            sid = self.get_argument('sid')
+            if Student.delete(sid):
+                data = json.dumps({
+                    "success": True,
+                    "sid": sid
+                })
+            else:
+                data = json.dumps({
+                    "success": False,
+                })
+            self.write(data)
         # teacher
         elif action == "insert_teacher":
             tid = self.get_argument('tid')
@@ -151,6 +163,18 @@ class AdminHandler(BaseHandler):
                 "teacher": None if teacher is None else teacher.dict()
             })
             self.write(data)
+        elif action == "delete_teacher":
+            tid = self.get_argument('tid')
+            if Teacher.delete(tid):
+                data = json.dumps({
+                    "success": True,
+                    "tid": tid
+                })
+            else:
+                data = json.dumps({
+                    "success": False,
+                })
+            self.write(data)
         # admin
         elif action == "insert_admin":
             aid = self.get_argument('aid')
@@ -160,6 +184,18 @@ class AdminHandler(BaseHandler):
             data = json.dumps({
                 "admin": None if admin is None else admin.dict()
             })
+            self.write(data)
+        elif action == "delete_admin":
+            aid = self.get_argument('aid')
+            if Admin.delete(aid):
+                data = json.dumps({
+                    "success": True,
+                    "admin": aid
+                })
+            else:
+                data = json.dumps({
+                    "success": False,
+                })
             self.write(data)
         # class
         elif action == "insert_class":

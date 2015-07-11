@@ -25,7 +25,7 @@
     </nav>
 
     <!-- table -->
-    <div class="row">
+    <div style="margin:10px 0" class="row">
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s3"><a href="#tab1" class="active">所有成绩</a></li>
@@ -54,10 +54,10 @@
                     <tbody>
                         {% for course in courses %}
                         <tr>
-                            <td>{{ course['id'] }}</td>
-                            <td>{{ course['name'] }}</td>
-                            <td>{{ course['score'] }}</td>
-                            {% if course['status'] == 1 %}
+                            <td>{{ course[1].cid }}</td>
+                            <td>{{ course[1].cname }}</td>
+                            <td>{{ course[0].score }}</td>
+                            {% if course[0].score >= 60 %}
                             <td><i class="small mdi-toggle-check-box left teal-text darken-1"></i></td>
                             {% else %}
                             <td><i class="small mdi-toggle-check-box-outline-blank left teal-text"></i></td>
@@ -69,10 +69,68 @@
             </div>
         </div>
         <div id="tab2" class="col s12">
-
+            <div class="card-panel">
+                <a name="features"></a>
+                <span class="card-title grey-text">
+                    <h3>成绩</h3>
+                </span>
+                <p>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-field="id"><span class="green-text left">课程号</span></th>
+                            <th data-field="name"><span class="green-text left">课程名称</span></th>
+                            <th data-field="score"><span class="green-text left">成绩</span></th>
+                            <th data-field="status"><span class="teal-text left">通过</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        {% if course[0].score >= 60 %}
+                        <tr>
+                            <td>{{ course[1].cid }}</td>
+                            <td>{{ course[1].cname }}</td>
+                            <td>{{ course[0].score }}</td>
+                            <td><i class="small mdi-toggle-check-box left teal-text darken-1"></i></td>
+                        </tr>
+                        {% end %}
+                        {% end %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div id="tab3" class="col s12">
-
+            <div class="card-panel">
+                <a name="features"></a>
+                <span class="card-title grey-text">
+                    <h3>成绩</h3>
+                </span>
+                <p>
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-field="id"><span class="green-text left">课程号</span></th>
+                            <th data-field="name"><span class="green-text left">课程名称</span></th>
+                            <th data-field="score"><span class="green-text left">成绩</span></th>
+                            <th data-field="status"><span class="teal-text left">通过</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course in courses %}
+                        {% if course[0].score < 60 %}
+                        <tr>
+                            <td>{{ course[1].cid }}</td>
+                            <td>{{ course[1].cname }}</td>
+                            <td>{{ course[0].score }}</td>
+                            <td><i class="small mdi-toggle-check-box-outline-blank left teal-text"></i></td>
+                        </tr>
+                        {% end %}
+                        {% end %}
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div id="tab4" class="col s12">
 

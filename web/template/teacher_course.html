@@ -24,21 +24,31 @@
         </div>
     </nav>
 
-    <!-- card -->
-    <div style="width: 700px; margin: 10% auto;" class="row">
-        <div class="col s12">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">教师</span>
-                    <ul class="collection">
-                        <li class="collection-item blue-grey">教工号：{{ teacher.tid }}</li>
-                        <li class="collection-item blue-grey">姓名：{{ teacher.tname }}</li>
-                    </ul>
-                </div>
-                <div class="card-action">
-                </div>
-            </div>
-        </div>
+    <!-- table -->
+    <div class="card-panel">
+        <a name="features"></a>
+        <span class="card-title grey-text">
+            <h3>课程</h3>
+        </span>
+        <p>
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th data-field="id"><span class="green-text left">课程号</span></th>
+                    <th data-field="name"><span class="green-text left">课程名称</span></th>
+                    <th data-field="status"><span class="teal-text left"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <td>{{ course.cid }}</td>
+                    <td>{{ course.cname }}</td>
+                </tr>
+                {% end %}
+            </tbody>
+        </table>
     </div>
 
 </body>

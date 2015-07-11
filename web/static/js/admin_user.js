@@ -24,7 +24,6 @@ function insert_student(){
 	XMLHttpReq.open("POST", "/admin/insert_student?sid=" + sid + "&sname=" + sname+ "&spwd=" + spwd + "&cid=" + cid, true);
 	XMLHttpReq.send(null);
 }
-
 function insert_student_r(){
 	if(XMLHttpReq.readyState == 4) {
 		var response = XMLHttpReq.responseText;
@@ -33,11 +32,42 @@ function insert_student_r(){
         if (student) {
             var students = document.getElementById('tab1').getElementsByTagName('tbody')[0];
             var row = students.insertRow(students.getElementsByTagName('tr').length - 1);
-            row.innerHTML += "<td>" + student.sid + "</td>" + "<td>" + student.sname + "</td>" + "<td>" + student.spwd + "</td>" + "<td>" + student.cid + "</td>";
+            row.innerHTML +=
+                "<td>" + student.sid + "</td>" +
+                "<td>" + student.sname + "</td>" +
+                "<td>" + student.spwd + "</td>" +
+                "<td>" + student.cid + "</td>" +
+                "<td style='padding-top:15px'><a href='javascript:delete_student(\"" + student.sid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
             document.getElementById('sid').value = "";
             document.getElementById('sname').value = "";
             document.getElementById('spwd').value = "";
             document.getElementById('cid').value = "";
+        }
+        else {
+
+        }
+	}
+}
+
+function delete_student(sid){
+    createXMLHttpRequest();
+	XMLHttpReq.onreadystatechange = delete_student_r;
+	XMLHttpReq.open("POST", "/admin/delete_student?sid=" + sid, true);
+	XMLHttpReq.send(null);
+}
+function delete_student_r(){
+	if(XMLHttpReq.readyState == 4) {
+		var response = XMLHttpReq.responseText;
+		var result = eval('(' + response + ')');
+        if (result.success) {
+            var students = document.getElementById('tab1').getElementsByTagName('tbody')[0];
+            var rows = students.getElementsByTagName('tr');
+            for(var i = 0; i < rows.length; ++i) {
+                if (rows[i].getElementsByTagName('td')[0].innerHTML == result.sid) {
+                    students.deleteRow(i);
+                    break;
+                }
+            }
         }
         else {
 
@@ -55,7 +85,6 @@ function insert_teacher(){
 	XMLHttpReq.open("POST", "/admin/insert_teacher?tid=" + tid + "&tname=" + tname+ "&tpwd=" + tpwd, true);
 	XMLHttpReq.send(null);
 }
-
 function insert_teacher_r(){
 	if(XMLHttpReq.readyState == 4) {
 		var response = XMLHttpReq.responseText;
@@ -64,10 +93,40 @@ function insert_teacher_r(){
         if (teacher) {
             var teachers = document.getElementById('tab2').getElementsByTagName('tbody')[0];
             var row = teachers.insertRow(teachers.getElementsByTagName('tr').length - 1);
-            row.innerHTML += "<td>" + teacher.tid + "</td>" + "<td>" + teacher.tname + "</td>" + "<td>" + teacher.tpwd + "</td>";
+            row.innerHTML +=
+                "<td>" + teacher.tid + "</td>" +
+                "<td>" + teacher.tname + "</td>" +
+                "<td>" + teacher.tpwd + "</td>" +
+                "<td style='padding-top:15px'><a href='javascript:delete_teacher(\"" + teacher.tid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
             document.getElementById('tid').value = "";
             document.getElementById('tname').value = "";
             document.getElementById('tpwd').value = "";
+        }
+        else {
+
+        }
+	}
+}
+
+function delete_teacher(tid){
+    createXMLHttpRequest();
+	XMLHttpReq.onreadystatechange = delete_teacher_r;
+	XMLHttpReq.open("POST", "/admin/delete_teacher?tid=" + tid, true);
+	XMLHttpReq.send(null);
+}
+function delete_teacher_r(){
+	if(XMLHttpReq.readyState == 4) {
+		var response = XMLHttpReq.responseText;
+		var result = eval('(' + response + ')');
+        if (result.success) {
+            var teachers = document.getElementById('tab2').getElementsByTagName('tbody')[0];
+            var rows = teachers.getElementsByTagName('tr');
+            for(var i = 0; i < rows.length; ++i) {
+                if (rows[i].getElementsByTagName('td')[0].innerHTML == result.tid) {
+                    teachers.deleteRow(i);
+                    break;
+                }
+            }
         }
         else {
 
@@ -85,7 +144,6 @@ function insert_admin(){
 	XMLHttpReq.open("POST", "/admin/insert_admin?aid=" + aid + "&aname=" + aname+ "&apwd=" + apwd, true);
 	XMLHttpReq.send(null);
 }
-
 function insert_admin_r(){
 	if(XMLHttpReq.readyState == 4) {
 		var response = XMLHttpReq.responseText;
@@ -94,10 +152,39 @@ function insert_admin_r(){
         if (admin) {
             var teachers = document.getElementById('tab3').getElementsByTagName('tbody')[0];
             var row = teachers.insertRow(teachers.getElementsByTagName('tr').length - 1);
-            row.innerHTML += "<td>" + admin.aid + "</td>" + "<td>" + admin.aname + "</td>" + "<td>" + admin.apwd + "</td>";
+            row.innerHTML +=
+                "<td>" + admin.aid + "</td>" +
+                "<td>" + admin.aname + "</td>" +
+                "<td>" + admin.apwd + "</td>";
             document.getElementById('aid').value = "";
             document.getElementById('aname').value = "";
             document.getElementById('apwd').value = "";
+        }
+        else {
+
+        }
+	}
+}
+
+function delete_admin(aid){
+    createXMLHttpRequest();
+	XMLHttpReq.onreadystatechange = delete_admin_r;
+	XMLHttpReq.open("POST", "/admin/delete_admin?aid=" + aid, true);
+	XMLHttpReq.send(null);
+}
+function delete_admin_r(){
+	if(XMLHttpReq.readyState == 4) {
+		var response = XMLHttpReq.responseText;
+		var result = eval('(' + response + ')');
+        if (result.success) {
+            var admins = document.getElementById('tab3').getElementsByTagName('tbody')[0];
+            var rows = admins.getElementsByTagName('tr');
+            for(var i = 0; i < rows.length; ++i) {
+                if (rows[i].getElementsByTagName('td')[0].innerHTML == result.tid) {
+                    admins.deleteRow(i);
+                    break;
+                }
+            }
         }
         else {
 
