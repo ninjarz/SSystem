@@ -76,11 +76,14 @@ class Student(Base):
 
     @staticmethod
     def delete(sid):
-        student = Student.select_by_sid(sid)
-        if student:
-            orm.session.delete(student)
-            orm.session.commit()
-            return True
+        try:
+            student = Student.select_by_sid(sid)
+            if student:
+                orm.session.delete(student)
+                orm.session.commit()
+                return True
+        except:
+            orm.session.rollback()
         return False
 
     def dict(self):
@@ -139,11 +142,14 @@ class Teacher(Base):
 
     @staticmethod
     def delete(tid):
-        teacher = Teacher.select_by_tid(tid)
-        if teacher:
-            orm.session.delete(teacher)
-            orm.session.commit()
-            return True
+        try:
+            teacher = Teacher.select_by_tid(tid)
+            if teacher:
+                orm.session.delete(teacher)
+                orm.session.commit()
+                return True
+        except:
+            orm.session.rollback()
         return False
 
     def dict(self):
@@ -201,11 +207,14 @@ class Admin(Base):
 
     @staticmethod
     def delete(aid):
-        admin = Admin.select_by_aid(aid)
-        if admin:
-            orm.session.delete(admin)
-            orm.session.commit()
-            return True
+        try:
+            admin = Admin.select_by_aid(aid)
+            if admin:
+                orm.session.delete(admin)
+                orm.session.commit()
+                return True
+        except:
+            orm.session.rollback()
         return False
 
     def dict(self):
@@ -253,11 +262,14 @@ class Class(Base):
 
     @staticmethod
     def delete(cid):
-        class_obj = Class.select_by_cid(cid)
-        if class_obj:
-            orm.session.delete(class_obj)
-            orm.session.commit()
-            return True
+        try:
+            class_obj = Class.select_by_cid(cid)
+            if class_obj:
+                orm.session.delete(class_obj)
+                orm.session.commit()
+                return True
+        except:
+            orm.session.rollback()
         return False
 
     def dict(self):
@@ -310,11 +322,14 @@ class Course(Base):
 
     @staticmethod
     def delete(cid):
-        course = Course.select_by_cid(cid)
-        if course:
-            orm.session.delete(course)
-            orm.session.commit()
-            return True
+        try:
+            course = Course.select_by_cid(cid)
+            if course:
+                orm.session.delete(course)
+                orm.session.commit()
+                return True
+        except:
+            orm.session.rollback()
         return False
 
     def dict(self):
@@ -369,11 +384,14 @@ class StudentCourse(Base):
 
     @staticmethod
     def delete(sid, cid):
-        course = StudentCourse.select_by_sid_cid(sid, cid)
-        if course:
-            orm.session.delete(course)
-            orm.session.commit()
-            return True
+        try:
+            course = StudentCourse.select_by_sid_cid(sid, cid)
+            if course:
+                orm.session.delete(course)
+                orm.session.commit()
+                return True
+        except:
+            orm.session.rollback()
         return False
 
     def dict(self):
@@ -393,4 +411,3 @@ def select_course_students(cid):
     students = orm.session.query(Student, StudentCourse)
     students = students.filter(StudentCourse.cid == cid).filter(Student.sid == StudentCourse.sid).all()
     return students
-

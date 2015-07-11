@@ -55,6 +55,7 @@
                         {% for class_obj in classes %}
                         <tr>
                             <td>{{ class_obj.cid }}</td>
+                            <td><a href="javascript:delete_class('{{ class_obj.cid }}')" class="btn waves-effect waves-light">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -98,6 +99,7 @@
                             <td>{{ course.cid }}</td>
                             <td>{{ course.cname }}</td>
                             <td>{{ course.tid }}</td>
+                            <td><a href="javascript:delete_course('{{ course.cid }}')" class="btn waves-effect waves-light">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -153,6 +155,7 @@
                             <td>{{ student_course.sid }}</td>
                             <td>{{ student_course.cid }}</td>
                             <td>{{ student_course.score }}</td>
+                            <td><a href="javascript:delete_student_course('{{ student_course.sid }}', '{{ student_course.cid }}')" class="btn waves-effect waves-light">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>

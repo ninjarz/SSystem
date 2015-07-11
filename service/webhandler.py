@@ -20,6 +20,7 @@ class LoginHandler(BaseHandler):
         if user_type == '1':
             student = Student.authenticate(user, password)
             if student:
+                print("student:", user)
                 self.set_secure_cookie("user", user)
                 self.set_secure_cookie("type", user_type)
                 self.redirect("/student")
@@ -29,6 +30,7 @@ class LoginHandler(BaseHandler):
         elif user_type == '2':
             teacher = Teacher.authenticate(user, password)
             if teacher:
+                print("teacher:", user)
                 self.set_secure_cookie("user", user)
                 self.set_secure_cookie("type", user_type)
                 self.redirect("/teacher")
@@ -38,6 +40,7 @@ class LoginHandler(BaseHandler):
         elif user_type == '3':
             admin = Admin.authenticate(user, password)
             if admin:
+                print("admin:", user)
                 self.set_secure_cookie("user", user)
                 self.set_secure_cookie("type", user_type)
                 self.redirect("/admin")
@@ -213,7 +216,7 @@ class AdminHandler(BaseHandler):
             if Admin.delete(aid):
                 data = json.dumps({
                     "success": True,
-                    "admin": aid
+                    "aid": aid
                 })
             else:
                 data = json.dumps({
@@ -228,6 +231,18 @@ class AdminHandler(BaseHandler):
                 "class": None if class_obj is None else class_obj.dict()
             })
             self.write(data)
+        elif action == "delete_class":
+            cid = self.get_argument('cid')
+            if Class.delete(cid):
+                data = json.dumps({
+                    "success": True,
+                    "cid": cid
+                })
+            else:
+                data = json.dumps({
+                    "success": False,
+                })
+            self.write(data)
         # course
         elif action == "insert_course":
             cid = self.get_argument('cid')
@@ -238,6 +253,18 @@ class AdminHandler(BaseHandler):
                 "course": None if course is None else course.dict()
             })
             self.write(data)
+        elif action == "delete_course":
+            cid = self.get_argument('cid')
+            if Course.delete(cid):
+                data = json.dumps({
+                    "success": True,
+                    "cid": cid
+                })
+            else:
+                data = json.dumps({
+                    "success": False,
+                })
+            self.write(data)
         # student_course
         elif action == "insert_student_course":
             sid = self.get_argument('sid')
@@ -247,6 +274,20 @@ class AdminHandler(BaseHandler):
             data = json.dumps({
                 "student_course": None if student_course is None else student_course.dict()
             })
+            self.write(data)
+        elif action == "delete_student_course":
+            sid = self.get_argument('sid')
+            cid = self.get_argument('cid')
+            if StudentCourse.delete(sid, cid):
+                data = json.dumps({
+                    "success": True,
+                    "sid": sid,
+                    "cid": cid,
+                })
+            else:
+                data = json.dumps({
+                    "success": False,
+                })
             self.write(data)
 
 

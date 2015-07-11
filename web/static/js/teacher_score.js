@@ -26,8 +26,7 @@ function update_student_score_r(){
 		var response = XMLHttpReq.responseText;
 		var result = eval('(' + response + ')');
         if (result.success) {
-            console.log(result);
-            var score = document.getElementById('0_0');
+            var score = document.getElementById(result.sid + '_' + result.cid);
             score.value = "";
             score = score.parentNode.parentNode.parentNode.getElementsByTagName('td');
             score[2].innerHTML = result.score;
