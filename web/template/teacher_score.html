@@ -10,6 +10,7 @@
     <script type="text/javascript" src="/web/static/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/web/static/js/materialize.min.js"></script>
     <script type="text/javascript" src="/web/static/js/teacher_score.js"></script>
+    <script type="text/javascript" src="/web/static/js/chart.min.js"></script>
 </head>
 
 <body>
@@ -37,11 +38,11 @@
         {% for course in courses %}
         <div id="{{ course.cid }}" class="col s12">
             <div class="card-panel">
-                <a name="features"></a>
                 <span class="card-title grey-text">
                     <h3>{{ course.cname }}</h3>
                 </span>
-                <p></p>
+                <canvas id="bar_chart_{{ course.cid }}" style="width: 40%;" class="left"></canvas>
+                <canvas id="pie_chart_{{ course.cid }}" style="width: 40%;" class="right"></canvas>
                 <table class="hoverable">
                     <thead>
                         <tr>
@@ -76,6 +77,9 @@
                 </table>
             </div>
         </div>
+        <script type="text/javascript">
+            draw_chart("{{ course.cid }}");
+        </script>
         {% end %}
     </div>
 
