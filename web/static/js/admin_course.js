@@ -31,7 +31,7 @@ function insert_class_r() {
             var row = classes.insertRow(classes.getElementsByTagName('tr').length - 1);
             row.innerHTML +=
                 "<td>" + class_obj.cid + "</td>" +
-                "<td><a href='javascript:delete_class(\"" + class_obj.cid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
+                "<td><a href='javascript:delete_class(\"" + class_obj.cid + "\")' class='btn waves-effect waves-light red darken-3'>删除</a></td>";
             document.getElementById('cid').value = "";
         }
         else {
@@ -86,7 +86,7 @@ function insert_course_r(){
             var row = courses.insertRow(courses.getElementsByTagName('tr').length - 1);
             row.innerHTML +=
                 "<td>" + course.cid + "</td>" + "<td>" + course.cname + "</td>" + "<td>" + course.tid + "</td>" +
-                "<td><a href='javascript:delete_course(\"" + course.cid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
+                "<td><a href='javascript:delete_course(\"" + course.cid + "\")' class='btn waves-effect waves-light red darken-3'>删除</a></td>";
             document.getElementById('course_cid').value = "";
             document.getElementById('course_cname').value = "";
             document.getElementById('course_tid').value = "";
@@ -144,7 +144,7 @@ function student_course_r() {
             row.innerHTML +=
                 "<td>" + student_course.sid + "</td>" + "<td>" +
                 student_course.cid + "</td>" + "<td>" + student_course.score + "</td>" +
-                "<td><a href='javascript:delete_student_course(\"" + student_course.sid + "\", \"" +  student_course.cid + "\")' class='btn waves-effect waves-light'>删除</a></td>";
+                "<td><a href='javascript:delete_student_course(\"" + student_course.sid + "\", \"" +  student_course.cid + "\")' class='btn waves-effect waves-light red darken-3'>删除</a></td>";
             document.getElementById('student_course_sid').value = "";
             document.getElementById('student_course_cid').value = "";
             document.getElementById('student_course_score').value = "";
@@ -154,7 +154,6 @@ function student_course_r() {
         }
 	}
 }
-
 function delete_student_course(sid, cid) {
     createXMLHttpRequest();
 	XMLHttpReq.onreadystatechange = delete_student_course_r;

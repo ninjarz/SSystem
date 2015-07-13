@@ -200,6 +200,7 @@ class AdminHandler(BaseHandler):
                 "success": result,
             })
             self.write(data)
+        # student
         elif action == "insert_student":
             sid = self.get_argument('sid')
             sname = self.get_argument('sname')
@@ -210,7 +211,17 @@ class AdminHandler(BaseHandler):
                 "student": None if student is None else student.dict()
             })
             self.write(data)
-        # student
+        elif action == "update_student":
+            sid = self.get_argument('sid')
+            sname = self.get_argument('sname')
+            spwd = self.get_argument('spwd')
+            cid = self.get_argument('cid')
+            result = Student.update(sid, {"sname": sname, "spwd": spwd, "cid": cid})
+            data = json.dumps({
+                "success": result,
+                "sid": sid, "sname": sname, "spwd": spwd, "cid": cid
+            })
+            self.write(data)
         elif action == "delete_student":
             sid = self.get_argument('sid')
             if Student.delete(sid):
@@ -231,6 +242,16 @@ class AdminHandler(BaseHandler):
             teacher = Teacher.insert(tid, tname, tpwd)
             data = json.dumps({
                 "teacher": None if teacher is None else teacher.dict()
+            })
+            self.write(data)
+        elif action == "update_teacher":
+            tid = self.get_argument('tid')
+            tname = self.get_argument('tname')
+            tpwd = self.get_argument('tpwd')
+            result = Teacher.update(tid, {"tname": tname, "tpwd": tpwd})
+            data = json.dumps({
+                "success": result,
+                "tid": tid, "tname": tname, "tpwd": tpwd
             })
             self.write(data)
         elif action == "delete_teacher":
@@ -255,6 +276,16 @@ class AdminHandler(BaseHandler):
                 "admin": None if admin is None else admin.dict()
             })
             self.write(data)
+        elif action == "update_admin":
+            aid = self.get_argument('aid')
+            aname = self.get_argument('aname')
+            apwd = self.get_argument('apwd')
+            result = Admin.update(aid, {"aname": aname, "apwd": apwd})
+            data = json.dumps({
+                "success": result,
+                "aid": aid, "aname": aname, "apwd": apwd
+            })
+            self.write(data)
         elif action == "delete_admin":
             aid = self.get_argument('aid')
             if Admin.delete(aid):
@@ -273,6 +304,14 @@ class AdminHandler(BaseHandler):
             class_obj = Class.insert(cid)
             data = json.dumps({
                 "class": None if class_obj is None else class_obj.dict()
+            })
+            self.write(data)
+        elif action == "update_class":
+            cid = self.get_argument('cid')
+            # result = Class.update(cid, {})
+            data = json.dumps({
+                "success": True,
+                "cid": cid
             })
             self.write(data)
         elif action == "delete_class":
@@ -297,6 +336,16 @@ class AdminHandler(BaseHandler):
                 "course": None if course is None else course.dict()
             })
             self.write(data)
+        elif action == "update_course":
+            cid = self.get_argument('cid')
+            cname = self.get_argument('cname')
+            tid = self.get_argument('tid')
+            result = Course.update(cid, {"cname": cname, "tid": tid})
+            data = json.dumps({
+                "success": result,
+                "cid": cid, "cname": cname, "tid": tid
+            })
+            self.write(data)
         elif action == "delete_course":
             cid = self.get_argument('cid')
             if Course.delete(cid):
@@ -317,6 +366,16 @@ class AdminHandler(BaseHandler):
             student_course = StudentCourse.insert(sid, cid, score)
             data = json.dumps({
                 "student_course": None if student_course is None else student_course.dict()
+            })
+            self.write(data)
+        elif action == "update_student_course":
+            sid = self.get_argument('sid')
+            cid = self.get_argument('cid')
+            score = self.get_argument('score')
+            result = StudentCourse.update(sid, cid, {"score": score})
+            data = json.dumps({
+                "success": result,
+                "sid": sid, "cid": cid, "score": score
             })
             self.write(data)
         elif action == "delete_student_course":

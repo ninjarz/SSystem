@@ -108,6 +108,26 @@ function draw_chart(cid) {
     if (pie_ctx.pie_chart)
         pie_ctx.pie_chart.destroy();
     pie_ctx.pie_chart = new Chart(pie_ctx).Pie(pie_data);
+
+    // radar
+    /*
+    var pie_ctx = document.getElementById("pie_chart_" + cid).getContext("2d");
+    var pie_data = {
+        labels: ["0-60", "60-70", "70-80", "80-90", "90-100"],
+        datasets : [
+            {
+                fillColor : "rgba(220,220,220,0.5)",
+                strokeColor : "rgba(220,220,220,1)",
+                pointColor : "rgba(220,220,220,1)",
+                pointStrokeColor : "#fff",
+                data : data
+            }
+        ]
+    };
+    if (pie_ctx.pie_chart)
+        pie_ctx.pie_chart.destroy();
+    pie_ctx.pie_chart = new Chart(pie_ctx).Pie(pie_data);
+    */
 }
 
 window.onload = function() {

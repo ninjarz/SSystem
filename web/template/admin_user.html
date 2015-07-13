@@ -58,7 +58,8 @@
                             <td>{{ student.sname }}</td>
                             <td>{{ student.spwd }}</td>
                             <td>{{ student.cid }}</td>
-                            <td><a href="javascript:delete_student('{{ student.sid }}')" class="btn waves-effect waves-light">删除</a></td>
+                            <td><a href="javascript:update_student_input('{{ student.sid }}')" class="btn waves-effect waves-light">更新</a></td>
+                            <td><a href="javascript:delete_student('{{ student.sid }}')" class="btn waves-effect waves-light red darken-3">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -117,7 +118,8 @@
                             <td>{{ teacher.tid }}</td>
                             <td>{{ teacher.tname }}</td>
                             <td>{{ teacher.tpwd }}</td>
-                            <td><a href="javascript:delete_teacher('{{ teacher.tid }}')" class="btn waves-effect waves-light">删除</a></td>
+                            <td><a href="javascript:update_teacher_input('{{ teacher.tid }}')" class="btn waves-effect waves-light">更新</a></td>
+                            <td><a href="javascript:delete_teacher('{{ teacher.tid }}')" class="btn waves-effect waves-light red darken-3">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -170,7 +172,8 @@
                             <td>{{ admin.aid }}</td>
                             <td>{{ admin.aname }}</td>
                             <td>{{ admin.apwd }}</td>
-                            <td><a href="javascript:delete_admin('{{ admin.aid }}')" class="btn waves-effect waves-light">删除</a></td>
+                            <td><a href="javascript:update_admin_input('{{ admin.aid }}')" class="btn waves-effect waves-light">更新</a></td>
+                            <td><a href="javascript:delete_admin('{{ admin.aid }}')" class="btn waves-effect waves-light red darken-3">删除</a></td>
                         </tr>
                         {% end %}
                         <tr>
@@ -204,9 +207,77 @@
         </div>
         <div id="tab4" class="col s12">
         </div>
-
     </div>
 
-
+    <!-- update -->
+    <div id="update_student_input" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 id="update_student_sid"></h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="update_student_sname" type="text" class="validate" name="sname" placeholder="">
+                    <label for="update_student_sname">姓名</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="update_student_spwd" type="text" class="validate" name="spwd" placeholder="">
+                    <label for="update_student_spwd">密码</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="update_student_cid" type="text" class="validate" name="cid" placeholder="">
+                    <label for="update_student_cid">班级</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">取消</a>
+            <a href = "javascript:update_student()" id="update_student_submit" class="waves-effect waves-green btn-flat">确定</a>
+        </div>
+    </div>
+    <div id="update_teacher_input" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 id="update_teacher_tid"></h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="update_teacher_tname" type="text" class="validate" name="tname" placeholder="">
+                    <label for="update_teacher_tname">姓名</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="update_teacher_tpwd" type="text" class="validate" name="tpwd" placeholder="">
+                    <label for="update_teacher_tpwd">密码</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">取消</a>
+            <a href = "javascript:update_teacher()" id="update_teacher_submit" class="waves-effect waves-green btn-flat">确定</a>
+        </div>
+    </div>
+    <div id="update_admin_input" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4 id="update_admin_aid"></h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="update_admin_aname" type="text" class="validate" name="aname" placeholder="">
+                    <label for="update_admin_aname">姓名</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="update_admin_apwd" type="text" class="validate" name="apwd" placeholder="">
+                    <label for="update_admin_apwd">密码</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat">取消</a>
+            <a href = "javascript:update_admin()" id="update_admin_submit" class="waves-effect waves-green btn-flat">确定</a>
+        </div>
+    </div>
 </body>
 </html>
