@@ -20,7 +20,6 @@ function update_student_score(sid, cid){
 	XMLHttpReq.open("POST", "/teacher/update_student_score?sid=" + sid + "&cid=" + cid + "&score=" + score, true);
 	XMLHttpReq.send(null);
 }
-
 function update_student_score_r(){
 	if(XMLHttpReq.readyState == 4) {
 		var response = XMLHttpReq.responseText;

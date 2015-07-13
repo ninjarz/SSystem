@@ -71,6 +71,25 @@ class StudentHandler(BaseHandler):
             courses = select_student_courses(student.sid)
             self.render("student_score.html", courses=courses)
 
+    @tornado.web.authenticated
+    def post(self, action):
+        action = action.split('/')
+        action = action[len(action) - 1]
+
+        # pwd
+        if action == "update_pwd":
+            old_pwd = self.get_argument('old_pwd')
+            new_pwd = self.get_argument('new_pwd')
+            student = Student.authenticate(self.get_secure_cookie("user").decode(), old_pwd)
+            result = False
+            if student:
+                if Student.update(student.sid, {'spwd': new_pwd}):
+                    result = True
+            data = json.dumps({
+                "success": result,
+            })
+            self.write(data)
+
 
 # teacher
 class TeacherHandler(BaseHandler):
@@ -104,8 +123,20 @@ class TeacherHandler(BaseHandler):
         action = action.split('/')
         action = action[len(action) - 1]
 
-        # student
-        if action == "update_student_score":
+        # pwd
+        if action == "update_pwd":
+            old_pwd = self.get_argument('old_pwd')
+            new_pwd = self.get_argument('new_pwd')
+            teacher = Teacher.authenticate(self.get_secure_cookie("user").decode(), old_pwd)
+            result = False
+            if teacher:
+                if Teacher.update(teacher.tid, {'tpwd': new_pwd}):
+                    result = True
+            data = json.dumps({
+                "success": result,
+            })
+            self.write(data)
+        elif action == "update_student_score":
             sid = self.get_argument('sid')
             cid = self.get_argument('cid')
             score = self.get_argument('score')
@@ -156,8 +187,20 @@ class AdminHandler(BaseHandler):
         action = action.split('/')
         action = action[len(action) - 1]
 
-        # student
-        if action == "insert_student":
+        # pwd
+        if action == "update_pwd":
+            old_pwd = self.get_argument('old_pwd')
+            new_pwd = self.get_argument('new_pwd')
+            admin = Admin.authenticate(self.get_secure_cookie("user").decode(), old_pwd)
+            result = False
+            if admin:
+                if Admin.update(admin.aid, {'apwd': new_pwd}):
+                    result = True
+            data = json.dumps({
+                "success": result,
+            })
+            self.write(data)
+        elif action == "insert_student":
             sid = self.get_argument('sid')
             sname = self.get_argument('sname')
             spwd = self.get_argument('spwd')
@@ -167,6 +210,7 @@ class AdminHandler(BaseHandler):
                 "student": None if student is None else student.dict()
             })
             self.write(data)
+        # student
         elif action == "delete_student":
             sid = self.get_argument('sid')
             if Student.delete(sid):
